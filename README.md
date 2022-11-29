@@ -58,7 +58,11 @@ Worker03 -> IP Address: 192.168.1.15
 
 Installing:
 ```
-*Prepare Ansible Node:*
+Prepare Kubernetes nodes (192.168.1.10-15):
+1- useradd ansible
+2- echo "ansible		ALL=(ALL)	NOPASSWD: ALL" > /etc/sudoers.d/admins
+
+Prepare Ansible Node:
 
 1- dnf install git python38 python3-pip -y
 2- git clone https://github.com/kubernetes-sigs/kubespray.git /opt/kubespray
@@ -70,8 +74,7 @@ Installing:
 8- copy install-ansible.sh to /scripts
 9- chmod +x install-ansible.sh
 10- /scripts/install-ansible.sh
-6- ssh-keygen
-7- ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1
-8- 
+11- ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1
+12- copy public key to other nodes:
 
 
