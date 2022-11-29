@@ -5,7 +5,7 @@ Requirements:
 
 1- OS: OracleLinux 8.5
 2- Python 3.8
-3- Kubespray
+3- Kubespray (Current Version in 2022-11-29 is 2.20.0)
 4- git
 5- one server with Oracle Linux 8.5 for ansible
 ```
@@ -47,12 +47,26 @@ Note: VolumeGroup for data directory filesystem name is "APPVG".
 ```
 **LOM:**
 ```
-Master01-> IP Address: 192.168.1.10
-Master02-> IP Address: 192.168.1.11
-Master03-> IP Address: 192.168.1.12
-Worker01-> IP Address: 192.168.1.13
-Worker02-> IP Address: 192.168.1.14
-Worker03-> IP Address: 192.168.1.15
+Ansible  -> IP  Address: 192.168.1.9
+Master01 -> IP Address: 192.168.1.10
+Master02 -> IP Address: 192.168.1.11
+Master03 -> IP Address: 192.168.1.12
+Worker01 -> IP Address: 192.168.1.13
+Worker02 -> IP Address: 192.168.1.14
+Worker03 -> IP Address: 192.168.1.15
 ```
+
+Installing:
+```
+1- dnf install git python38 python3-pip -y
+2- git clone https://github.com/kubernetes-sigs/kubespray.git /opt/kubespray
+3- cd /opt/kubespray
+4- useradd ansible
+5- echo "ansible		ALL=(ALL)	NOPASSWD: ALL" > /etc/sudoers.d/admins
+6- su - ansible #switch to ansible user enviroment
+7- 
+6- ssh-keygen
+7- ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1
+8- 
 
 
