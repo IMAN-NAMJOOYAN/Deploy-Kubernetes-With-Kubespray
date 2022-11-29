@@ -60,9 +60,9 @@ Installing:
 ```
 Prepare Kubernetes nodes (192.168.1.10-15):
 1- useradd ansible
-2- echo "ansible		ALL=(ALL)	NOPASSWD: ALL" > /etc/sudoers.d/admins
+2- echo "ansible  ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/admins
 
-Prepare Ansible Node:
+Prepare Ansible Node (192.168.1.9):
 
 1- dnf install git python38 python3-pip -y
 2- git clone https://github.com/kubernetes-sigs/kubespray.git /opt/kubespray
