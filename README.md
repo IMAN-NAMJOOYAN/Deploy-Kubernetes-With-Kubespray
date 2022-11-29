@@ -9,7 +9,10 @@ Requirements:
 4- git
 5- one server with Oracle Linux 8.5 for ansible
 ```
-**We have 6 nodes in this scenario. Three nodes to be used as control planes and three nodes as workers. In addition, three control plane nodes are used to install etcd database. The installation environment is on virtual machines in VMWare environment.**
+**We have 6 nodes in this scenario.Three nodes to be used as control planes, three nodes as workers and one node for Ansible. In addition, three control plane nodes are used to install etcd database. The installation environment is on virtual machines in VMWare environment.**
+
+![image](https://user-images.githubusercontent.com/16554389/204513136-50ae86ea-3ad6-4543-99b1-dd04dd503865.png)
+
 
 **The specifications of virtual machines are as follows:**
 ```
@@ -60,6 +63,7 @@ Installing:
 ```
 Prepare Kubernetes nodes (192.168.1.10-15):
 1- useradd ansible
+2- passwd ansible #set password for ansible user
 2- echo "ansible  ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/admins
 
 Prepare Ansible Node (192.168.1.9):
@@ -73,8 +77,58 @@ Prepare Ansible Node (192.168.1.9):
 7- mkdir /scripts
 8- copy install-ansible.sh to /scripts
 9- chmod +x install-ansible.sh
-10- /scripts/install-ansible.sh
-11- ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1
+10- /scripts/install-ansible.sh #install ansible and other requirements
+11- ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y >/dev/null 2>&1 #create private and public key
 12- copy public key to other nodes:
+ssh-copy-id ansible@192.168.1.10
+ssh-copy-id ansible@192.168.1.11
+ssh-copy-id ansible@192.168.1.12
+ssh-copy-id ansible@192.168.1.13
+ssh-copy-id ansible@192.168.1.14
+ssh-copy-id ansible@192.168.1.15
+13- cd /opt/kubespray
+14- sudo cp -rfp inventory/sample inventory/mycluster 
+15- sudo vi inventory//mycluster/inventory.ini #Then change the file according to the following values
+```
+# ## Configure 'ip' variable to bind kubernetes services on a
+# ## different ip than the default iface
+# ## We should set etcd_member_name for etcd cluster. The node that is not a etcd member do not need to set the value, or can set the empty string value.
+[all]
+master01 ansible_host=192.168.1.10  # ip=10.3.0.1 etcd_member_name=etcd1
+master02 ansible_host=192.168.1.11  # ip=10.3.0.2 etcd_member_name=etcd2
+master03 ansible_host=192.168.1.12  # ip=10.3.0.3 etcd_member_name=etcd3
+worker01 ansible_host=192.168.1.13  # ip=10.3.0.4 etcd_member_name=etcd4
+worker02 ansible_host=192.168.1.14  # ip=10.3.0.5 etcd_member_name=etcd5
+worker03 ansible_host=192.168.1.15  # ip=10.3.0.6 etcd_member_name=etcd6
+
+# ## configure a bastion host if your nodes are not directly reachable
+# [bastion]
+# bastion ansible_host=x.x.x.x ansible_user=some_user
+
+[kube_control_plane]
+master01
+master02
+master03
+
+[etcd]
+master01
+master02
+master03
+
+[kube_node]
+master01
+master02
+master03
+worker01
+worker02
+worker03
+
+[calico_rr]
+
+[k8s_cluster:children]
+kube_control_plane
+kube_node
+calico_rr
+```
 
 
