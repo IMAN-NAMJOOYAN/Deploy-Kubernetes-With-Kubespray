@@ -11,6 +11,28 @@ Requirements:
 ```
 The specifications of virtual machines are as follows:
 Cpu: 4 cores
+Note: Note: If you need to increase the memory in the future, activate the CPU Hot Plug option.
 Memory: 8GB
 Note: If you need to increase the memory in the future, activate the Memory Hot Plug option.
+HDD: 2*100GB (100GB for OS and 100GB for data directory)
+```
+**Operating system specifications and settings on nodes:**
+1- Create LVM (Logical Volume Manager) for each disk
+*The proposed model for the LVM structure of the operating system:*
 
+NAME                 MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                    8:0    0   100G 0 disk 
+├─sda1                 8:1    0    1G  0 part /boot/efi
+├─sda2                 8:2    0    1G  0 part /boot
+└─sda3                 8:3    0   98G  0 part 
+  ├─mainvg-lv_root   252:0    0    5G  0 lvm  /
+  ├─mainvg-lv_swap   252:1    0    5G  0 lvm  
+  ├─mainvg-lv_usr    252:2    0    5G  0 lvm  /usr
+  ├─mainvg-lv_home   252:3    0    5G  0 lvm  /home
+  ├─mainvg-lv_var    252:4    0    5G  0 lvm  /var
+  ├─mainvg-lv_opt    252:5    0    5G  0 lvm  /opt
+  ├─mainvg-lv_tmp    252:6    0    5G  0 lvm  /tmp
+  ├─mainvg-lv_vartmp 252:7    0    5G  0 lvm  /var/tmp
+  ├─mainvg-lv_varlog 252:9    0    5G  0 lvm  /var/log
+  └─mainvg-lv_audit  252:10   0    5G  0 lvm  /var/log/audit
+  2- 
