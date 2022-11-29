@@ -6,6 +6,8 @@ Requirements:
 1- OS: OracleLinux 8.5
 2- Python 3.8
 3- Kubespray
+4- git
+5- one server with Oracle Linux 8.5 for ansible
 ```
 **We have 6 nodes in this scenario. Three nodes to be used as control planes and three nodes as workers. In addition, three control plane nodes are used to install etcd database. The installation environment is on virtual machines in VMWare environment.**
 
@@ -43,6 +45,14 @@ APPVG-LV_APP         252:8    0   100G  0 lvm  /app
 
 Note: VolumeGroup for data directory filesystem name is "APPVG".
 ```
-
+**LOM:**
+```
+Master01-> IP Address: 192.168.1.10
+Master02-> IP Address: 192.168.1.11
+Master03-> IP Address: 192.168.1.12
+Worker01-> IP Address: 192.168.1.13
+Worker02-> IP Address: 192.168.1.14
+Worker03-> IP Address: 192.168.1.15
+```
 
 
