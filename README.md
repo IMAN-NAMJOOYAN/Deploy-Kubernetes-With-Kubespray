@@ -88,8 +88,8 @@ ssh-copy-id ansible@192.168.1.14
 ssh-copy-id ansible@192.168.1.15
 13- cd /opt/kubespray
 14- sudo cp -rfp inventory/sample inventory/mycluster 
-15- sudo vi inventory//mycluster/inventory.ini #Then change the file according to the following values
-```
+15- sudo vi inventory//mycluster/inventory.ini #Then change the file according to the following values:
+
 # ## Configure 'ip' variable to bind kubernetes services on a
 # ## different ip than the default iface
 # ## We should set etcd_member_name for etcd cluster. The node that is not a etcd member do not need to set the value, or can set the empty string value.
@@ -129,6 +129,5 @@ worker03
 kube_control_plane
 kube_node
 calico_rr
+
 ```
-
-
