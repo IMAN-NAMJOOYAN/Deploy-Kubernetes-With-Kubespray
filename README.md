@@ -133,5 +133,6 @@ calico_rr
 
 16- sudo sed -i '4i containerd_storage_dir: "/app/containerd"'  inventory/mycluster/group_vars/all/containerd.yml
 17- sudo sed -i 's/etcd_data_dir: \/var\/lib\/etcd/etcd_data_dir: \/app\/etcd/' inventory/mycluster/group_vars/all/etcd.yml
-18- ansible-playbook -i inventory/mycluster/hosts.yaml  --become --become-user=root cluster.yml
+18- ansible-playbook -i inventory/mycluster/inventory.ini  --become --become-user=root cluster.yml
+
 
