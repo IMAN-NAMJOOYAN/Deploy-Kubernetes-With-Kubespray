@@ -134,5 +134,6 @@ calico_rr
 17- sudo sed -i 's/etcd_data_dir: \/var\/lib\/etcd/etcd_data_dir: \/app\/etcd/' inventory/mycluster/group_vars/all/etcd.yml
 18- ansible-playbook -i inventory/mycluster/inventory.ini  --become --become-user=root cluster.yml
 19- check nodes status
+kubectl get nodes -o wide
 ```
 
