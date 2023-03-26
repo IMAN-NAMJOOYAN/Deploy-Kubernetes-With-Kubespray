@@ -1,4 +1,5 @@
 #!/bin/bash
+#--------------------------------(This Script Prepare Suitable Ansible Version For Kubespray)
 pip3.8 install virtualenv --user
 VENVDIR=kubespray-venv
 KUBESPRAYDIR=/opt/kubespray
